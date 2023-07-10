@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class PhoneSpawner : MonoBehaviour
 {
     public PhoneScriptableObject phone;
     public Transform parentTransform;
+    private Transform trashBin;
 
     void Start()
-    {              
-        InstantiatePhone();
+    {        
+        InstantiatePhone();        
+
     }
-    private void OnMouseUp()
+    void Awake()
     {
-        Debug.Log("Clicked");
+        trashBin = GameObject.FindGameObjectWithTag("TrashBin").GetComponent<Transform>();
     }
 
     void InstantiatePhone()
@@ -27,7 +30,9 @@ public class PhoneSpawner : MonoBehaviour
         }
         else if (phone.phoneDamageType == "Component")
         {
+            PhoneBase("PhoneBase", phone.phoneBottomSprite, 0, false);
 
+            PhoneBase("BackCover", phone.phoneTopSprite, 3, true);
         }
     }
 
@@ -41,7 +46,9 @@ public class PhoneSpawner : MonoBehaviour
         phoneBase.sortingOrder = sortingOrder;
         if (addCollider)
         {
-            BoxCollider2D collider = phoneObject.AddComponent<BoxCollider2D>();
+            phoneObject.AddComponent<BoxCollider2D>();
+            ComponentDragDrop dragDrop = phoneObject.AddComponent<ComponentDragDrop>();
+            dragDrop.trashBinTransform = trashBin;
         }
     }
 
