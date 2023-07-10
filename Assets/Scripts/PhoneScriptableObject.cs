@@ -4,11 +4,9 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "PhoneScriptableObject", menuName ="ScriptableObject/PhoneScriptableObject")]
 public class PhoneScriptableObject : ScriptableObject
-{
-    public string phoneName;
+{    
     public string phoneDamageType;
-    public Sprite phoneTopSprite; 
-    public Sprite phoneUnderSprite;
-
-
+    public Sprite phoneTopSprite;
+    public Sprite[] phoneComponents;
+    public Sprite phoneBottomSprite;
 }

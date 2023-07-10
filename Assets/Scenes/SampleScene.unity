@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phone: {fileID: 11400000, guid: 130c718d06e191a4199adfe4c60089df, type: 2}
+  parentTransform: {fileID: 349338486}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
