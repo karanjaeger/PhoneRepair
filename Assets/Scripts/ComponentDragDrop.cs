@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ComponentDragDrop : MonoBehaviour
@@ -5,12 +6,15 @@ public class ComponentDragDrop : MonoBehaviour
     private bool isDragging = false;
     private Vector2 initialPosition;
     private Transform parentTransform;
+    private Vector2 clickOffset;
+    private int sortingOrder;
     private SpriteRenderer spriteRenderer;
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     private Collider2D collider;
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     public Transform trashBinTransform;
+    public Transform correctSlot;
 
 
     private void Awake()
@@ -18,20 +22,28 @@ public class ComponentDragDrop : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         parentTransform = transform.parent;
+        sortingOrder = this.spriteRenderer.sortingOrder;
+    }
+    private Vector2 GetMouseWorldPosition()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = -Camera.main.transform.position.z;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
     private void OnMouseDown()
     {
         isDragging = true;
         initialPosition = transform.position;
+        clickOffset = (Vector2)transform.position - GetMouseWorldPosition();
+        this.spriteRenderer.sortingOrder = 5;
     }
 
     private void OnMouseDrag()
     {
         if (isDragging)
         {
-            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            newPosition.z = 0f;
+            Vector2 newPosition = GetMouseWorldPosition() + clickOffset; 
             transform.position = newPosition;
         }
     }
@@ -39,16 +51,32 @@ public class ComponentDragDrop : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false;
+        this.spriteRenderer.sortingOrder = sortingOrder;
 
-
-        if (trashBinTransform != null && IsOverlapping(trashBinTransform))
+        if(correctSlot == null)
         {
+            if (trashBinTransform != null && IsOverlapping(trashBinTransform))
+            {
 
-            HandleDamagedComponentDropped();
+                HandleDamagedComponentDropped();
+            }
+            else
+            {
+                transform.position = initialPosition;
+                
+            }
         }
         else
         {
-            transform.position = initialPosition;
+            if (IsOverlapping(correctSlot))
+            {
+                transform.position = correctSlot.position;
+                this.collider.enabled = false;
+            }
+            else
+            {
+                transform.position = initialPosition;
+            }
         }
     }
 

@@ -7,5 +7,6 @@ public class PhoneScriptableObject : ScriptableObject
 {    
     public string phoneDamageType;
     public Sprite phoneTopSprite;
-    public Sprite phoneBottomSprite;    
+    public Sprite phoneBottomSprite;   
+    public GameObject PhoneComponents;
 }

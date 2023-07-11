@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a80eec84a0d82748a7d20f03ae9aa49, type: 3}
-  m_Name: PhoneDamaged02
+  m_Name: ScreenDamage
   m_EditorClassIdentifier: 
   phoneDamageType: Screen
-  phoneTopSprite: {fileID: 21300000, guid: ec65e28cd19e05049b51b83b2a7a77a6, type: 3}
-  phoneComponents: []
-  phoneBottomSprite: {fileID: 21300000, guid: c10778667d86acc4c87624035de85bdb, type: 3}
+  phoneTopSprite: {fileID: 21300000, guid: c38fb0b1dad589f4691dcf062c7ff089, type: 3}
+  phoneBottomSprite: {fileID: 21300000, guid: 012277ae06f930942bfb789d703cb569, type: 3}
+  PhoneComponents: {fileID: 0}
