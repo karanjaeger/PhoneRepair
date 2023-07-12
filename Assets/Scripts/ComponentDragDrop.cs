@@ -102,7 +102,7 @@ public class ComponentDragDrop : MonoBehaviour
     }
 
     private bool IsOverlapping(Transform targetTransform)
-    {
+    {        
         Collider2D targetCollider = targetTransform.GetComponent<Collider2D>();
         if (collider != null && targetCollider != null)
         {
@@ -150,6 +150,7 @@ public class ComponentDragDrop : MonoBehaviour
     private void OnDestroyedHandler()
     {
         onDestroyed = true;
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
 
 }

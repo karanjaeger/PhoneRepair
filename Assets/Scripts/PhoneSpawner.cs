@@ -11,9 +11,11 @@ public class PhoneSpawner : MonoBehaviour
     private Transform trashBin;
     private SpriteRenderer backCover;
     private ComponentsManager ComponentsManager;
+    private LevelManager LevelManager;
 
     void Start()
     {    
+        LevelManager = GameObject.FindObjectOfType<LevelManager>();
         InstantiatePhone();
         FadeOutOnClick.OnSpriteFade += EventHandler;
         
@@ -23,7 +25,7 @@ public class PhoneSpawner : MonoBehaviour
         }
     }
     void EventHandler()
-    {
+    {        
         GameObject[] components = GameObject.FindGameObjectsWithTag("Event");
         foreach (GameObject component in components)
         {
@@ -104,10 +106,11 @@ public class PhoneSpawner : MonoBehaviour
         if(backCover != null)
         {
             StartCoroutine(BackCoverSpawn());
+            StartCoroutine(LevelChange());
         }
         else
         {
-            return;
+            StartCoroutine(LevelChange());            
         }
     }
 
@@ -115,5 +118,11 @@ public class PhoneSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         backCover.enabled = true;
+    }
+
+    private IEnumerator LevelChange()
+    {
+        yield return new WaitForSeconds(3);
+        LevelManager.EnableNextGameObject();
     }
 }

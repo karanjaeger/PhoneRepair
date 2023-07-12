@@ -6,12 +6,14 @@ public class FadeOutOnClick : MonoBehaviour
     private bool isFading = false;
     private float fadeSpeed = 1f;
     public delegate void SpriteFade();
-    public static event SpriteFade OnSpriteFade;
+    public static event SpriteFade OnSpriteFade;  
+    
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
 
     private void Update()
     {
