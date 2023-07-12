@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class ComponentDragDrop : MonoBehaviour
@@ -15,14 +16,33 @@ public class ComponentDragDrop : MonoBehaviour
 
     public Transform trashBinTransform;
     public Transform correctSlot;
+    private ComponentsManager ComponentsManager;
+    private bool onDestroyed = false;    
 
 
     private void Awake()
     {
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         parentTransform = transform.parent;
         sortingOrder = this.spriteRenderer.sortingOrder;
+        ComponentsManager = FindObjectOfType<ComponentsManager>();
+        if (IsDamagedComponent())
+        {
+            ComponentsManager.IncrementDamagedComponentCount();
+        }
+        if (IsNewComponent())
+        {
+            ComponentsManager.IncrementNewComponentCount();
+        }
+        ComponentsManager.OnDestroyed += OnDestroyedHandler;        
+
+    }
+
+    private void OnDisable()
+    {
+        ComponentsManager.OnDestroyed -= OnDestroyedHandler;        
     }
     private Vector2 GetMouseWorldPosition()
     {
@@ -68,10 +88,11 @@ public class ComponentDragDrop : MonoBehaviour
         }
         else
         {
-            if (IsOverlapping(correctSlot))
+            if (IsOverlapping(correctSlot) && onDestroyed)
             {
                 transform.position = correctSlot.position;
                 this.collider.enabled = false;
+                ComponentsManager.DecrementNewComponentCount();
             }
             else
             {
@@ -92,8 +113,43 @@ public class ComponentDragDrop : MonoBehaviour
 
     private void HandleDamagedComponentDropped()
     {
-        Destroy(gameObject);
+        if (IsDamagedComponent())
+        {
+
+            ComponentsManager.DecrementDamagedComponentCount();
+
+
+            Destroy(gameObject);
+        }
     }
 
+    private bool IsDamagedComponent()
+    {
+        if (correctSlot == null) 
+        {
+            return true; 
+        }
+        else
+        {
+            return false;
+        }        
+
+    }
+
+    private bool IsNewComponent()
+    {
+        if (correctSlot != null)
+        {
+            return true;
+        } 
+        else
+        {
+            return false;
+        }
+    }
+    private void OnDestroyedHandler()
+    {
+        onDestroyed = true;
+    }
 
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   phoneDamageType: Component
   phoneTopSprite: {fileID: 21300000, guid: 25b0500c868c06940be421292aad97a7, type: 3}
   phoneBottomSprite: {fileID: 21300000, guid: dca9ca6f5146e02498448c3dfaa71be7, type: 3}
-  PhoneComponents: {fileID: 2854616723101786956, guid: 49274b5b0ffa6a641a88878e6a39c9fd, type: 3}
+  PhoneComponents: {fileID: 2854616723101786956, guid: dff7572d902124b4f9f64cb1bb78f91c, type: 3}

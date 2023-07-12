@@ -8,12 +8,19 @@ public class PhoneSpawner : MonoBehaviour
 {
     public PhoneScriptableObject phone;
     public Transform parentTransform;
-    private Transform trashBin;    
+    private Transform trashBin;
+    private SpriteRenderer backCover;
+    private ComponentsManager ComponentsManager;
 
     void Start()
-    {        
+    {    
         InstantiatePhone();
         FadeOutOnClick.OnSpriteFade += EventHandler;
+        
+        if(backCover != null)
+        {
+            backCover.enabled = false;
+        }
     }
     void EventHandler()
     {
@@ -24,13 +31,15 @@ public class PhoneSpawner : MonoBehaviour
         }
     }
     void Awake()
-    {
+    {        
         trashBin = GameObject.FindGameObjectWithTag("TrashBin").GetComponent<Transform>();
+        ComponentsManager.OnPlaced += OnPlacedHandler;
     }
 
     private void OnDisable()
     {
         FadeOutOnClick.OnSpriteFade -= EventHandler;
+        ComponentsManager.OnPlaced -= OnPlacedHandler;
     }
 
     void InstantiatePhone()
@@ -39,6 +48,7 @@ public class PhoneSpawner : MonoBehaviour
         {
             PhoneBase("PhoneBase", phone.phoneBottomSprite, 0, false, false);
             PhoneBase("CrackedDisplay", phone.phoneTopSprite, 1, true, false);
+            PhoneComponents();
             
 
         }
@@ -47,7 +57,7 @@ public class PhoneSpawner : MonoBehaviour
             PhoneBase("PhoneBase", phone.phoneBottomSprite, 0, false);
             PhoneComponents();
             PhoneBase("BackCover", phone.phoneTopSprite, 3, true, true);
-
+            backCover = GameObject.FindGameObjectWithTag("BackCover").GetComponent<SpriteRenderer>();
         }
     }
 
@@ -77,6 +87,7 @@ public class PhoneSpawner : MonoBehaviour
     void PhoneComponents()
     {
         GameObject gameComponents = Instantiate(phone.PhoneComponents);
+        gameComponents.transform.parent = parentTransform;
         foreach (ComponentDragDrop script in gameComponents.GetComponentsInChildren<ComponentDragDrop>())
         {
             script.trashBinTransform = trashBin;
@@ -88,6 +99,21 @@ public class PhoneSpawner : MonoBehaviour
         }
     }
 
+    void OnPlacedHandler()
+    {
+        if(backCover != null)
+        {
+            StartCoroutine(BackCoverSpawn());
+        }
+        else
+        {
+            return;
+        }
+    }
 
-
+    private IEnumerator BackCoverSpawn()
+    {
+        yield return new WaitForSeconds(1);
+        backCover.enabled = true;
+    }
 }

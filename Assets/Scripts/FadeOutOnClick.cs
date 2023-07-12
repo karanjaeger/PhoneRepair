@@ -4,7 +4,7 @@ public class FadeOutOnClick : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private bool isFading = false;
-    private float fadeSpeed = 0.5f;
+    private float fadeSpeed = 1f;
     public delegate void SpriteFade();
     public static event SpriteFade OnSpriteFade;
 
@@ -17,12 +17,12 @@ public class FadeOutOnClick : MonoBehaviour
     {
         if (isFading)
         {
-            // Reduce the alpha value of the sprite renderer color gradually
+            
             Color color = spriteRenderer.color;
             color.a -= fadeSpeed * Time.deltaTime;
             spriteRenderer.color = color;
 
-            // If the alpha value reaches 0, destroy the GameObject
+   
             if (color.a <= 0)
             {
                 Destroy(gameObject);

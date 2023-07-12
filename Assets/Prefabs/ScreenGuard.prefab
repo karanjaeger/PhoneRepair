@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1654991385477160411}
   m_Layer: 0
   m_Name: ScreenNew
-  m_TagString: Untagged
+  m_TagString: NewComponents
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -136,7 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1654991385734778464}
   - component: {fileID: 1654991385734778465}
-  - component: {fileID: 1654991385734778478}
+  - component: {fileID: 4788738936980940608}
   m_Layer: 0
   m_Name: ScreenSlot
   m_TagString: Untagged
@@ -211,7 +211,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1654991385734778478
+--- !u!61 &4788738936980940608
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
