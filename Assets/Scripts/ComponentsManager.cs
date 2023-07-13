@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ComponentsManager : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class ComponentsManager : MonoBehaviour
     public delegate void NewComponentPlaced();
     public static event NewComponentPlaced OnPlaced;
 
+
     public void IncrementDamagedComponentCount()
     {
         damagedComponentCount++;
+
     }
 
     public void DecrementDamagedComponentCount()
@@ -20,7 +23,7 @@ public class ComponentsManager : MonoBehaviour
         if (damagedComponentCount <= 0)
         {
             
-            Debug.Log("All damaged components are destroyed!");
+            Debug.Log("All damaged components are destroyed!");            
             OnDestroyed();
         }
     }
@@ -36,6 +39,7 @@ public class ComponentsManager : MonoBehaviour
         if(newComponentCount <= 0)
         {
             Debug.Log("All components placed!");
+            
             OnPlaced();
         }
     }

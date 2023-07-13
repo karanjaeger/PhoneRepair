@@ -8,6 +8,7 @@ TagManager:
   - Event
   - NewComponents
   - BackCover
+  - Click
   layers:
   - Default
   - TransparentFX

@@ -48,15 +48,15 @@ public class PhoneSpawner : MonoBehaviour
     {
         if (phone.phoneDamageType == "Screen")
         {
-            PhoneBase("PhoneBase", phone.phoneBottomSprite, 0, false, false);
-            PhoneBase("CrackedDisplay", phone.phoneTopSprite, 1, true, false);
+            PhoneBase("PhoneBase", phone.phoneBottomSprite, 1, false, false);
+            PhoneBase("CrackedDisplay", phone.phoneTopSprite, 2, true, false);
             PhoneComponents();
             
 
         }
         else if (phone.phoneDamageType == "Component")
         {
-            PhoneBase("PhoneBase", phone.phoneBottomSprite, 0, false);
+            PhoneBase("PhoneBase", phone.phoneBottomSprite, 1, false);
             PhoneComponents();
             PhoneBase("BackCover", phone.phoneTopSprite, 3, true, true);
             backCover = GameObject.FindGameObjectWithTag("BackCover").GetComponent<SpriteRenderer>();

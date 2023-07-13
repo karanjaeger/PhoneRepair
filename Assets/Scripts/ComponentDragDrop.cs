@@ -17,12 +17,13 @@ public class ComponentDragDrop : MonoBehaviour
     public Transform trashBinTransform;
     public Transform correctSlot;
     private ComponentsManager ComponentsManager;
-    private bool onDestroyed = false;    
+    private bool onDestroyed = false;
+    private AudioSource audioSource;
 
 
     private void Awake()
     {
-        
+        audioSource = GameObject.FindGameObjectWithTag("Click").GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         parentTransform = transform.parent;
@@ -53,6 +54,7 @@ public class ComponentDragDrop : MonoBehaviour
 
     private void OnMouseDown()
     {
+        audioSource.Play();
         isDragging = true;
         initialPosition = transform.position;
         clickOffset = (Vector2)transform.position - GetMouseWorldPosition();
